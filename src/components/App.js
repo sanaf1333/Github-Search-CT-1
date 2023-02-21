@@ -22,7 +22,7 @@ class App extends Component{
                 <SearchandDropdown/>
                 </Row>
                 </Col>
-                <CardLayout/>
+                
                 
             </div>
         )
