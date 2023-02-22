@@ -4,6 +4,13 @@ import { Select, Space } from 'antd';
 import FetchData from '../Data/searchQuery';
 import { useState } from 'react';
 import CardLayout from './CardLayout';
+import { Col, Row} from 'antd';
+import "../styles/cards.css"
+import {
+	ConfigProvider,
+	Switch,
+    Layout, Typography
+} from "antd";
 //const CardLayout= React.lazy(() => import('./CardLayout'));
 
 //if we call it in compnentdid mount it will get more queries
@@ -14,6 +21,7 @@ const SearchandDropdown = () => {
         const [cardData, setCardData]=useState({});
         const [searchInput,setSearchInput]=useState('');
         const [dropdownValue, setDropdownValue]=useState('users');
+        
         function handleChange(value){
             setDropdownValue(value);
             console.log(dropdownValue);
@@ -52,8 +60,9 @@ const SearchandDropdown = () => {
             }
         }
         return ( 
-            <div>
-                <Space>
+            <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+                <div>
+                <Space direction='horizontal'>
                     <Input placeholder="Enter keywords" onChange={handleChange1} />
                   
                     <Select
@@ -77,11 +86,30 @@ const SearchandDropdown = () => {
                             },
                         ]}
                         />
-                        <div>you wrote : {searchInput}</div>
-                        
                        </Space>
+                       </div>
+                       <div style={{display:"flex", flexDirection:"row", paddingTop:"20px"}}>
+                       <div>you wrote : {searchInput}</div>
                        <div>total followers : {cardData.followers}</div>
-                        {CardLayout(cardData)}
+                      
+                        </div>                  
+                        <Layout>
+                        <Row className="row" gutter={[16,16]} >
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
+                        </Row>
+                        </Layout>
+                        
                         
             </div>
          );

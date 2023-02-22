@@ -1,31 +1,17 @@
 import React from "react";
 import { GithubFilled } from '@ant-design/icons';
 import { Space } from 'antd';
-import { Col, Row } from 'antd';
-import ThemeToggleButton from "./themeToggle";
-import {
-	ConfigProvider,
-	Switch,
-    Layout, Typography
-} from "antd";
-const { Text, Link, Title } = Typography;
-const siderStyle = {
-    whiteSpace: 'pre',
-  };
 const TopBar = (props) => {
     var text = " Github Searcher \n hello";
     return ( 
-        <Space align="top">
+        <Space align="start">
             <GithubFilled style={{ fontSize: '46px', color:props}} />
            
-                <Title level={5}>Github Search</Title>
-                {/* <Text>Search users, repositories and issues</Text> */}
-               
-            
-            {/* <ThemeToggleButton/> */}
+            <div style={{whiteSpace:"pre", color:props}}>
+                <div style={{fontFamily:"fantasy", fontSize:"20px", paddingTop:"6px"}}>Github Search</div>
+                <div>Search users, repositories and issues</div>
+            </div>
             </Space>
-
-        
         
      );
 }
