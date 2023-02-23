@@ -1,12 +1,22 @@
+.array-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
 
+.array-row {
+  display: flex;
+  justify-content: space-between;
+}
 
-.Red {background: red; color: white; width: 200px;}
-.Green {background: green; color: white; width: 200px;}
-.Blue {background: blue; color: white; width: 200px;}
+@media only screen and (max-width: 968px) {
+  .array-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-@media screen and (max-width: 600px) {
-  .column {
-    flex: 100% !important;
-   
+@media only screen and (max-width: 768px) {
+  .array-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
