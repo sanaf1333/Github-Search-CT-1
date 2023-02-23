@@ -12,6 +12,7 @@ import {
 //const CardLayout= React.lazy(() => import('./CardLayout'));
 const SearchandDropdown = () => {
     let val;
+    const items=[];
         const [cardData, setCardData]=useState([]);
         const [searchInput,setSearchInput]=useState('');
         const [dropdownValue, setDropdownValue]=useState('users');
@@ -44,6 +45,10 @@ const SearchandDropdown = () => {
                 }                   
                 );
             }
+            else{
+                setCardData([]);
+                //items=[];
+            }
         }
         function handleChange1(e){
             setSearchInput(e.target.value);
@@ -72,8 +77,14 @@ const SearchandDropdown = () => {
                 );
                 
             }
+            else{
+                setCardData([]);
+                //items=[];
+            }
             
         }
+        
+        
         return ( 
             <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
                 <div>
@@ -108,39 +119,20 @@ const SearchandDropdown = () => {
                        <div>total followers : {cardData.followers}</div>
                       
                         </div>                  
-                        {/* <Layout>
-                        <Row className="row" gutter={[16,16]} >
-                            
-                            <Col flex="1 0 25%" className="column">{dataFound? CardLayout(cardData): "Loading.."}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                            <Col flex="1 0 25%" className="column">{CardLayout(cardData)}</Col>
-                        </Row>
-                        </Layout> */}
-                        {/* {cardData !== undefined && [cardData].map(itm => <li>{CardLayout(itm)}</li>)} */}
-                        {console.log(cardData)}
+                       
                         {
-                            cardData && cardData.map(comment=>{
-                                
-                            return(                           
-                                <div key={comment.id}>{CardLayout(comment)}</div>
-                            )
+                                cardData && cardData.map(comment=>{
+                                                     
+                                items.push(<div key={comment.id}>{CardLayout(comment)}</div>)
+                            
 
                             })
                         }
-                        
-                        
-                        
-                        
-                        
+                        <div className="array-container">
+                            {items}
+                        </div>
+                       
+                  
             </div>
          );
     }
