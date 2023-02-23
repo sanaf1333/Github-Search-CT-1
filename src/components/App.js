@@ -10,6 +10,7 @@ import {
 import * as lightTheme from "../ant-tokens/light.json";
 import * as darkTheme from "../ant-tokens/dark.json";
 const { Text, Link, Title } = Typography;
+const { Content } = Layout;
 //redux toolkit
 //catch error in fetch api
 //what if it results error? get error and empty screen
