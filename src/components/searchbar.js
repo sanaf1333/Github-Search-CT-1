@@ -1,95 +1,62 @@
 import React from 'react';
 import { Input } from 'antd';
 import { Select, Space } from 'antd';
-import FetchData from '../Data/searchQuery';
 import { useState } from 'react';
-import CardLayout from './CardLayout';
-import { Col, Row} from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts,clearResults } from '../redux-store/resultSlice';
+import { setSearch,setDropdown } from '../redux-store/store';
+const ResultCards = React.lazy(() => import('./result-cards'));
+import useDebouncedCallback from './debounce';
 import "../styles/cards.css"
-import {
-    Layout, Typography
-} from "antd";
-//const CardLayout= React.lazy(() => import('./CardLayout'));
 const SearchandDropdown = () => {
-    let val;
-    const items=[];
-        const [cardData, setCardData]=useState([]);
+    
+        const dispatch = useDispatch();
         const [searchInput,setSearchInput]=useState('');
         const [dropdownValue, setDropdownValue]=useState('users');
-        const [dataFound, setDataFound]=useState(false);
-        const [length,setLength]=useState(0);
+        const handleSearchInput = useDebouncedCallback((value) => {
+            dispatch(setSearch(value));
+            dispatch(setDropdown(dropdownValue));
+            if (value.length >= 3) {
+              const url = `${dropdownValue}?q=${value}`;
+              dispatch(fetchProducts(url));
+            } else {
+              dispatch(clearResults());
+            }
+          }, 500); 
+          const handleSearchDropdown = useDebouncedCallback((value) => {
+            dispatch(setSearch(searchInput));
+            dispatch(setDropdown(dropdownValue));
+            if (searchInput.length >= 3) {
+              const url = `${value}?q=${searchInput}`;
+              dispatch(fetchProducts(url));
+            } else {
+              dispatch(clearResults());
+            }
+          }, 500); 
+          
         function handleChange(value){
             setDropdownValue(value);
+            dispatch(setSearch(searchInput));
+            dispatch(setDropdown(value));
             console.log(value);
-            if(searchInput.length>=3){
-                const url=`${value}/${searchInput}`;
-                const result=FetchData(`${value}?q=${searchInput}`);
-                if(result!=''){
-                    setDataFound(true);
-                }
-                else{
-                    setDataFound(false);
-                    setCardData({});
-                }
-                console.log(result);
-                
-                result.then(function(response) {
-                    val=response.data;
-                    setCardData(response.data.items);
-                   
-                    }
-                ).then(function(){
-                    //setCardData(response.data);
-                    console.log("card data");
-                    console.log(cardData);
-                }                   
-                );
-            }
-            else{
-                setCardData([]);
-                //items=[];
-            }
+            const url=`${value}?q=${searchInput}`;
+            handleSearchDropdown(value);
+            
         }
         function handleChange1(e){
             setSearchInput(e.target.value);
-            if(e.target.value.length>=3){
-                const url=`${dropdownValue}/${e.target.value}`;
-                console.log("handle change 1");
-                const result1=FetchData(`${dropdownValue}?q=${e.target.value}`);
-                if(result1!=''){
-                    setDataFound(true);
-                }
-                else{
-                    setDataFound(false);
-                    setCardData({});
-                }
-                console.log(result1);
-                result1.then(function(response) {
-                        console.log(response.data);
-                        val=response.data.items;
-                        setCardData(response.data.items);
-                        console.log(val);
-                        setLength(response.data.items.length);
-                      }
-                ).then(function(){
-                    
-                }                   
-                );
-                
-            }
-            else{
-                setCardData([]);
-                //items=[];
-            }
-            
+            dispatch(setSearch(e.target.value));
+            dispatch(setDropdown(dropdownValue));
+            const url=`${dropdownValue}?q=${e.target.value}`;                
+            handleSearchInput(e.target.value);
         }
-        
+        const { data: results, status } = useSelector((state) => state.result);
         
         return ( 
-            <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+            <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", paddingTop: results.length ? '0px' : '100px'}}>
                 <div>
                 <Space direction='horizontal'>
-                    <Input placeholder="Enter keywords" onChange={handleChange1} />
+                    <Input placeholder="Enter keywords" onChange={handleChange1} value={searchInput} />
                   
                     <Select
                         defaultValue="users"
@@ -97,6 +64,7 @@ const SearchandDropdown = () => {
                             width: 120,
                         }}
                         onChange={handleChange}
+                        value={dropdownValue}
                         options={[
                             {
                             value: 'users',
@@ -116,23 +84,12 @@ const SearchandDropdown = () => {
                        </div>
                        <div style={{display:"flex", flexDirection:"row", paddingTop:"20px"}}>
                        <div>you wrote : {searchInput}</div>
-                       <div>total followers : {cardData.followers}</div>
+                       
                       
                         </div>                  
-                       
-                        {
-                                cardData && cardData.map(comment=>{
-                                                     
-                                items.push(<div key={comment.id}>{CardLayout(comment)}</div>)
-                            
-
-                            })
-                        }
-                        <div className="array-container">
-                            {items}
-                        </div>
-                       
-                  
+                        <React.Suspense fallback={<div>Loading...........</div>}>
+                        <ResultCards/>
+                        </React.Suspense>
             </div>
          );
     }

@@ -2,6 +2,8 @@ import React, {Component, Suspense, lazy, useState}  from 'react';
 import SearchandDropdown from './searchbar';
 //const SearchandDropdown = lazy(() => import('./searchbar'));
 import TopBar from './topBar';
+import { Provider } from 'react-redux';
+import store from '../redux-store/store.js';
 import {
 	ConfigProvider,
 	Switch,
@@ -11,16 +13,6 @@ import * as lightTheme from "../ant-tokens/light.json";
 import * as darkTheme from "../ant-tokens/dark.json";
 const { Text, Link, Title } = Typography;
 const { Content } = Layout;
-//redux toolkit
-//catch error in fetch api
-//what if it results error? get error and empty screen
-//import { startTransition } from 'react';
-//lazy loading not working. errorrrrrrr
-//multiple results
-//multiple cards map
-//youcant search repos without user and issue without repos
-//display user and its repos and then user can open any repo
-//query parameters
 const App = () => {
     const [dark, setDark] = useState(false);
 	const handleChecked = (checked) => {
@@ -39,25 +31,19 @@ const App = () => {
             theme={{
                 token: dark ? darkTheme : lightTheme,
             }}>
+                <Provider store={store}>
                 <Layout
                 style={{
-                   // display: "flex",
-                   // flexDirection:"column",
-                    height: scrollHeight,
-                    
+                    height: scrollHeight,                   
                 }}>
                 <div
                     style={{
                         display: "flex",
                         flexDirection:"row",
-                        //alignItems: "center",
                         justifyContent: "space-between",
-                        //height: "100vh",
-                        padding:"10px"
-                        
+                        padding:"10px"                        
                     }}
-			    >
-                  
+			    >                 
                {TopBar(logocolor)}              
                     <Switch checkedChildren="Light" unCheckedChildren="Dark" defaultChecked onChange={handleChecked}
                     />                
@@ -67,15 +53,10 @@ const App = () => {
                     padding:"20px",
                 }}>
                 <SearchandDropdown/>
+                </Layout>               
                 </Layout>
-                
-               
-               
-                
-                </Layout>
-        </ConfigProvider>
-        
-        )
-    
+                </Provider>
+        </ConfigProvider>       
+        )    
 }
 export default App;

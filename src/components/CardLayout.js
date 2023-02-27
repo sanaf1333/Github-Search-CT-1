@@ -3,8 +3,10 @@ import { Card } from 'antd';
 const { Meta } = Card;
 import {  Typography } from 'antd';
 const {  Link } = Typography;
+import { Suspense,lazy } from 'react';
+const LazyImage = React.lazy(() => import('./user-card-image'));
+
 export default function CardLayout (props) {
-    //console.log(props);
     const name=props.login;
     const followers=props.followers_url;
     const following=props.following_url;
@@ -19,7 +21,9 @@ export default function CardLayout (props) {
             style={{
             width: 240,
             }}
-            cover={<img alt={name} src={avatar_url} />}
+            cover={<Suspense fallback={<img src="https://www.macmillandictionary.com/us/external/slideshow/full/Grey_full.png" alt="dummy image"/>}>
+            <LazyImage src={avatar_url} alt={name} />
+          </Suspense>}
         >
             <Meta title={name}
             description={<div>
