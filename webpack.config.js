@@ -1,9 +1,6 @@
 const path=require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AntDesignThemePlugin = require('antd-theme-webpack-plugin');
-const fs  = require('fs');
-const lessToJs = require('less-vars-to-js');
-const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './ant-default-vars.less'), 'utf8'));
 const options = {
   antDir: path.join(__dirname, './node_modules/antd'),
   stylesDir: path.join(__dirname, './src'),
@@ -39,7 +36,7 @@ module.exports={
     module:{
         rules:[
             {
-                test: /.js$/,
+                test: /.(jsx|js)$/,
                 exclude: /node_modules/,
                 use:{
                     loader: 'babel-loader',
@@ -51,21 +48,7 @@ module.exports={
                     }
                 }
             },
-            {
-                test: /\.less$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    }, {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            javascriptEnabled: true
-                        }
-                    }]
-            },
+            
             {
                 test: /\.css$/,
                 use: ['style-loader','css-loader']
