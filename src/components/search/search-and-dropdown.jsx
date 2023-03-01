@@ -1,70 +1,21 @@
 import React, { useState, useCallback, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Select, Space } from "antd";
-import useDebouncedCallback from "./debounce.jsx";
-import {
-  fetchProducts,
-  clearResults,
-} from "../../redux-store/reducers/result-slice.jsx";
-import {
-  setDropdown,
-  setSearch,
-} from "../../redux-store/reducers/search-slice.jsx";
+import useSearchHandlers from "./search-handlers-container.jsx";
 import ResultCards from "../cards/result-cards.jsx";
-
 const SearchAndDropdown = () => {
-  const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
   const [dropdownValue, setDropdownValue] = useState("users");
-
-  const handleSearchInput = useDebouncedCallback(
-    useCallback(
-      (value) => {
-        dispatch(setSearch(value));
-        dispatch(setDropdown(dropdownValue));
-        if (value.length >= 3) {
-          const url = `${dropdownValue}?q=${value}`;
-          dispatch(fetchProducts(url));
-        } else {
-          dispatch(clearResults());
-        }
-      },
-      [dispatch, dropdownValue]
-    ),
-    500
-  );
-
-  const handleSearchDropdown = useDebouncedCallback(
-    useCallback(
-      (value) => {
-        dispatch(setSearch(searchInput));
-        dispatch(setDropdown(value));
-        if (searchInput.length >= 3) {
-          const url = `${value}?q=${searchInput}`;
-          dispatch(fetchProducts(url));
-        } else {
-          dispatch(clearResults());
-        }
-      },
-      [dispatch, searchInput]
-    ),
-    500
-  );
+  const { handleSearchInput, handleSearchDropdown } = useSearchHandlers();
 
   function handleChangeDropdown(value) {
     setDropdownValue(value);
-    dispatch(setSearch(searchInput));
-    dispatch(setDropdown(value));
-    const url = `${value}?q=${searchInput}`;
-    handleSearchDropdown(value);
+    handleSearchDropdown(value, searchInput);
   }
 
   function handleChangeSearchInput(e) {
     setSearchInput(e.target.value);
-    dispatch(setSearch(e.target.value));
-    dispatch(setDropdown(dropdownValue));
-    const url = `${dropdownValue}?q=${e.target.value}`;
-    handleSearchInput(e.target.value);
+    handleSearchInput(e.target.value, dropdownValue);
   }
 
   const { data: results, status } = useSelector((state) => state.result);
