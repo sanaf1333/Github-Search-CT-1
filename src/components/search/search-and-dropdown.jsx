@@ -1,24 +1,9 @@
-import React, { useState, useCallback, Suspense } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Suspense } from "react";
 import { Input, Select, Space } from "antd";
-import useSearchHandlers from "./search-handlers-container.jsx";
 import ResultCards from "../cards/result-cards.jsx";
-const SearchAndDropdown = () => {
-  const [searchInput, setSearchInput] = useState("");
-  const [dropdownValue, setDropdownValue] = useState("users");
-  const { handleSearchInput, handleSearchDropdown } = useSearchHandlers();
-
-  function handleChangeDropdown(value) {
-    setDropdownValue(value);
-    handleSearchDropdown(value, searchInput);
-  }
-
-  function handleChangeSearchInput(e) {
-    setSearchInput(e.target.value);
-    handleSearchInput(e.target.value, dropdownValue);
-  }
-
-  const { data: results, status } = useSelector((state) => state.result);
+import { useSelector } from "react-redux";
+const SearchAndDropdown = (props) => {
+  //const { results, status } = useSelector((state) => state.result);
 
   return (
     <div
@@ -27,15 +12,15 @@ const SearchAndDropdown = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: results.length ? "0px" : "100px",
+        paddingTop: props.results.length>0 ? "0px" : "100px",
       }}
     >
       <div>
         <Space direction="horizontal">
           <Input
             placeholder="Enter keywords"
-            onChange={handleChangeSearchInput}
-            value={searchInput}
+            onChange={(e) => props.handleChangeSearchInput(e.target.value)}
+            value={props.searchInput}
           />
 
           <Select
@@ -43,8 +28,8 @@ const SearchAndDropdown = () => {
             style={{
               width: 120,
             }}
-            onChange={handleChangeDropdown}
-            value={dropdownValue}
+            onChange={(value) => props.handleChangeDropdown(value)}
+            value={props.dropdownValue}
             options={[
               {
                 value: "users",
@@ -65,11 +50,13 @@ const SearchAndDropdown = () => {
       <div
         style={{ display: "flex", flexDirection: "row", paddingTop: "20px" }}
       />
+
       <Suspense fallback={<div>Loading...........</div>}>
         <ResultCards />
       </Suspense>
     </div>
   );
 };
+
 
 export default SearchAndDropdown;
