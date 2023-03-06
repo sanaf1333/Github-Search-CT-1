@@ -7,13 +7,14 @@ import { Suspense, lazy } from "react";
 const LazyImage = React.lazy(() => import("../user-card-image.jsx"));
 
 export default function CardLayout(props) {
+  console.log(props);
   const {
-    login: name,
-    followers_url: followers,
-    following_url: following,
-    avatar_url: avatarUrl,
-    url: email,
-    html_url: profile,
+    login: Name,
+    followersURL: Followers,
+    followingURL: Following,
+    avatarURL: AvatarUrl,
+    url: Email,
+    htmlURL: Profile,
   } = props;
 
   return (
@@ -32,7 +33,7 @@ export default function CardLayout(props) {
               />
             }
           >
-            <LazyImage src={avatarUrl} alt={name} />
+            <LazyImage src={AvatarUrl} alt={Name} />
           </Suspense>
         }
       >
@@ -40,10 +41,10 @@ export default function CardLayout(props) {
           title={name}
           description={
             <div>
-              <p><Text strong>Followers:</Text>{followers} </p>
-              <p><Text strong>Following:</Text>{following} </p>
-              <p><Text strong>Email:</Text>{email} </p>
-              <p><Text strong>Profile URL:</Text> <Link target="_blank" href={profile}>{profile}</Link> </p>
+              <p><Text strong>Followers:</Text>{Followers} </p>
+              <p><Text strong>Following:</Text>{Following} </p>
+              <p><Text strong>Email:</Text>{Email} </p>
+              <p><Text strong>Profile URL:</Text> <Link target="_blank" href={Profile}>{Profile}</Link> </p>
             </div>
           }
         />

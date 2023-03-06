@@ -4,27 +4,27 @@ import { Typography } from "antd";
 const { Link,Text } = Typography;
 export default function CardLayoutRepos(props) {
   const {
-    full_name: name,
-    created_at: creationDate,
-    forks_count: forks,
-    language: language,
-    html_url: reposUrl,
-    watchers_count: watchers,
+    fullName: Name,
+    createdAt: CreationDate,
+    forksCount: Forks,
+    language: Language,
+    htmlURL: ReposURL,
+    watchersCount: Watchers,
   } = props;
 
   return (
     <div>
       <Card
-        title={name}
+        title={Name}
         style={{
           width: 240,
         }}
       >
-        <p><Text strong>Created at:</Text> {creationDate}</p>
-        <p><Text strong>Language:</Text> {language}</p>
-        <p><Text strong>Forks:</Text> {forks}</p>
-        <p><Text strong>Watchers:</Text> {watchers}</p>
-        <p><Text strong>Repository url:</Text> <Link target="_blank" href={reposUrl}>{reposUrl}</Link></p>
+        <p><Text strong>Created at:</Text> {CreationDate}</p>
+        <p><Text strong>Language:</Text> {Language}</p>
+        <p><Text strong>Forks:</Text> {Forks}</p>
+        <p><Text strong>Watchers:</Text> {Watchers}</p>
+        <p><Text strong>Repository url:</Text> <Link target="_blank" href={ReposURL}>{ReposURL}</Link></p>
       </Card>
     </div>
   );
