@@ -1,10 +1,9 @@
 import React, { Suspense } from "react";
 import { Input, Select, Space } from "antd";
-import ResultCards from "../cards/result-cards.jsx";
+import ResultCards from "@components/cards/result-cards.jsx";
 import { useSelector } from "react-redux";
 const SearchAndDropdown = (props) => {
-  //const { results, status } = useSelector((state) => state.result);
-
+  
   return (
     <div
       style={{
