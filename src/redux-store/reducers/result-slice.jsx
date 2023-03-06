@@ -1,9 +1,4 @@
-const {
-  createSlice,
-  combineReducers,
-  createAsyncThunk,
-} = require("@reduxjs/toolkit");
-import { useSelector } from "react-redux";
+const { createSlice } = require("@reduxjs/toolkit");
 export const STATUSES = Object.freeze({
   IDLE: "idle",
   ERROR: "error",
@@ -11,6 +6,7 @@ export const STATUSES = Object.freeze({
   FINISH: "finish",
 });
 
+const API_URL = process.env.REACT_APP_API_URL;
 const ResultSlice = createSlice({
   name: "result",
   initialState: {
@@ -32,13 +28,9 @@ const ResultSlice = createSlice({
     },
     setPageNumber(state,action){
       state.pageNumber=action.payload;
-      //console.log("set page num in redux ",action.payload);
     },
     setURL(state,action){
       state.URL=action.payload;
-      console.log("seturl");
-      console.log(state.URL);
-      console.log(action.payload);
     },
     setResultCount(state,action){
       state.resultCount=action.payload;
@@ -50,21 +42,17 @@ const ResultSlice = createSlice({
 export const { setResults, setStatus, clearResults, setPageNumber, setURL, setResultCount } = ResultSlice.actions;
 export default ResultSlice.reducer;
 
-export function fetchProducts(props) {
-  console.log("fetch");
-  console.log(props);
+export function fetchProducts() {
   return async function fetchProductThunk(dispatch, getState) {
     const pageNumber = getState().result.pageNumber;
     const URL= getState().result.URL;
     const currentResults = getState().result.data;
-    console.log("URL from Redux store: ", getState().result.URL);
-    console.log("props");
-    console.log(props);
+    
     dispatch(setStatus(STATUSES.LOADING));
     try {
       const headers = { Accept: "application/vnd.github.text-match+json" };
       const res = await fetch(
-        "https://api.github.com/search/" +
+        API_URL +
           URL +
           "&per_page=20&page="+pageNumber,
         { headers }
