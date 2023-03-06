@@ -1,8 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AntDesignThemePlugin = require('antd-theme-webpack-plugin');
 const Dotenv = require("dotenv-webpack");
-//const { fallback } = require('path-browserify');
 const options = {
   antDir: path.join(__dirname, './node_modules/antd'),
   stylesDir: path.join(__dirname, './src'),
@@ -11,8 +9,6 @@ const options = {
   generateOnce: false,
   publicPath: "",
 };
-
-const themePlugin = new AntDesignThemePlugin(options);
 
 module.exports = {
   
@@ -27,7 +23,6 @@ module.exports = {
     }),
     new Dotenv({
       systemvars: true,}),
-    themePlugin,
   ],
   module: {
     rules: [
