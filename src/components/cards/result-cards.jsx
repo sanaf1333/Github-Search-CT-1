@@ -2,12 +2,12 @@ import React, { useRef, useEffect, useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ConfigProvider, Row, Col } from "antd";
 import { Typography } from "antd";
-import DestructAPIResponse from "../../helpers/destruct-api-response.js";
+import DestructAPIResponse from "helpers/destruct-api-response.js";
 import LoadingCardSkeleton from "./loading-card-skeleton.jsx";
 import CardLayout from "./card-skeleton/card-layout-user.jsx";
 import CardLayoutIssue from "./card-skeleton/card-layout-issue.jsx";
 import CardLayoutRepos from "./card-skeleton/card-layout-repos.jsx";
-import useInfiniteScroll from "../../hooks/use-infinite-scroll-hook.jsx";
+import useInfiniteScroll from "hooks/use-infinite-scroll-hook.jsx";
 import {
   setPageNumber,
   fetchProducts,
