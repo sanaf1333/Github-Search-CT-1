@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useSearchHandlers from "./search-handlers-container.jsx";
-import SearchAndDropdown from "../../components/search/search-and-dropdown.jsx";
+import SearchAndDropdown from "@components/search/search-and-dropdown.jsx";
 import { useSelector } from "react-redux";
 
 const SearchAndDropdownContainer = React.memo(() => {
