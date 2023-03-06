@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from "react";
 import { Provider } from "react-redux";
 import { ConfigProvider, Switch, Layout } from "antd";
-import TopBar from "./shared-components/navbar/top-bar.jsx";
-import store from "./redux-store/store/store.jsx";
-import * as lightTheme from "./ant-tokens/light.json";
-import * as darkTheme from "./ant-tokens/dark.json";
+import TopBar from "shared-components/navbar/top-bar.jsx";
+import store from "redux-store/store/store.jsx";
+import * as lightTheme from "ant-tokens/light.json";
+import * as darkTheme from "ant-tokens/dark.json";
 import { BulbOutlined, BulbFilled } from "@ant-design/icons";
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
