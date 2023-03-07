@@ -17,7 +17,7 @@ export default function DestructAPIResponse(data, dropdownValue){
             fullName: data.full_name,
             createdAt: extractDate(data.created_at),
             forksCount: data.forks_count,
-            language: data.language,
+            language: data.language || "N/A",
             htmlURL: data.html_url,
             watchersCount: data.watchers_count,
           };
