@@ -71,8 +71,11 @@ export function fetchProducts(searchKeyword,pageCount,pageNumber) {
       if (pageNumber === 1 && data.total_count === 0) {
         dispatch(setStatus(STATUSES.SUCCESS));
       }
+
+      if(data.message){
+        dispatch(setStatus(STATUSES.ERROR));
+      }
     } catch (err) {
-      console.log(err);
       dispatch(setStatus(STATUSES.ERROR));
     }
   };
