@@ -1,25 +1,29 @@
-import React, { Suspense } from "react";
-import { Input, Select, Space } from "antd";
-import ResultCards from "@components/cards/result-cards.jsx";
-import { useSelector } from "react-redux";
+import React from "react";
+import { Input, Select, Space, Layout } from "antd";
+import ResultCardsContainer from "@containers/cards/result-cards-container.jsx";
 const SearchAndDropdown = (props) => {
-  
+  const {
+    searchInput,
+    dropdownValue,
+    handleChangeSearchInput,
+    handleChangeDropdown,
+    results,
+  } = props;
   return (
-    <div
+    <Layout
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
+        //display: "flex",
+        //flexDirection: "column",
         alignItems: "center",
-        paddingTop: props.results.length>0 ? "0px" : "100px",
+        paddingTop: results && results.length > 0 ? "0px" : "100px",
       }}
     >
-      <div>
+      <Layout style={{ marginBottom: "20px" }}>
         <Space direction="horizontal">
           <Input
             placeholder="Enter keywords"
-            onChange={(e) => props.handleChangeSearchInput(e.target.value)}
-            value={props.searchInput}
+            onChange={(e) => handleChangeSearchInput(e.target.value)}
+            value={searchInput}
           />
 
           <Select
@@ -27,8 +31,8 @@ const SearchAndDropdown = (props) => {
             style={{
               width: 120,
             }}
-            onChange={(value) => props.handleChangeDropdown(value)}
-            value={props.dropdownValue}
+            onChange={(value) => handleChangeDropdown(value)}
+            value={dropdownValue}
             options={[
               {
                 value: "users",
@@ -45,17 +49,10 @@ const SearchAndDropdown = (props) => {
             ]}
           />
         </Space>
-      </div>
-      <div
-        style={{ display: "flex", flexDirection: "row", paddingTop: "20px" }}
-      />
-
-      <Suspense fallback={<div>Loading...........</div>}>
-        <ResultCards />
-      </Suspense>
-    </div>
+      </Layout>
+      <ResultCardsContainer />
+    </Layout>
   );
 };
-
 
 export default SearchAndDropdown;
