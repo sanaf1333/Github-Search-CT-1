@@ -1,15 +1,14 @@
-import React from "react";
-import { Card } from "antd";
+import React ,{Suspense} from "react";
+import { Card,Typography,Layout } from "antd";
 const { Meta } = Card;
-import { Typography } from "antd";
-const { Link,Text } = Typography;
-import { Suspense, lazy } from "react";
+const { Link,Text } = Typography; //how imports work 
 const LazyImage = React.lazy(() => import("@components/cards/user-card-image.jsx"));
+//single line imports react...,antd...
 
 export default function CardLayout(props) {
-
+  const {avatarURL,login,followersURL, followingURL,url,htmlURL}=props;
   return (
-    <div>
+    <Layout>
       <Card
         hoverable
         style={{
@@ -24,22 +23,22 @@ export default function CardLayout(props) {
               />
             }
           >
-            <LazyImage src={props.avatarURL} alt={props.login} />
+            <LazyImage src={avatarURL} alt={login} />
           </Suspense>
         }
       >
         <Meta
-          title={props.login}
+          title={login}
           description={
-            <div>
-              <p><Text strong>Followers:</Text>{props.followersURL} </p>
-              <p><Text strong>Following:</Text>{props.followingURL} </p>
-              <p><Text strong>Email:</Text>{props.url} </p>
-              <p><Text strong>Profile URL:</Text> <Link target="_blank" href={props.htmlURL}>{props.htmlURL}</Link> </p>
-            </div>
+            <Layout style={{paddingRight:"5px", paddingLeft:"5px"}}>
+              <p><Text strong>Followers:</Text>{followersURL} </p>
+              <p><Text strong>Following:</Text>{followingURL} </p>
+              <p><Text strong>Email:</Text>{url} </p>
+              <p><Text strong>Profile URL:</Text> <Link target="_blank" href={htmlURL}>{htmlURL}</Link> </p>
+              </Layout>
           }
         />
       </Card>
-    </div>
+      </Layout>
   );
 }
