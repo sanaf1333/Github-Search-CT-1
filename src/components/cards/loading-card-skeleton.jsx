@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Skeleton } from "antd";
+import { Col, Row, Skeleton, Layout } from "antd";
 
 const LoadingCardSkeleton = () => {
   const skeletonCols = new Array(4).fill(null).map((_, index) => (
@@ -9,11 +9,11 @@ const LoadingCardSkeleton = () => {
   ));
 
   return (
-    <div>
+    <Layout>
       <Row gutter={[20, 20]} justify="center">
         {skeletonCols}
       </Row>
-    </div>
+    </Layout>
   );
 };
 
