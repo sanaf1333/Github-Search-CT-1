@@ -1,14 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require("dotenv-webpack");
-const options = {
-  antDir: path.join(__dirname, './node_modules/antd'),
-  stylesDir: path.join(__dirname, './src'),
-  themeVariables: ['@primary-color'],
-  indexFileName: 'index.html',
-  generateOnce: false,
-  publicPath: "",
-};
 
 module.exports = {
   
@@ -27,7 +19,14 @@ module.exports = {
   resolve: {
     alias: {
       "@components": path.resolve(__dirname, "src/components"),
-      
+      "@containers": path.resolve(__dirname, "src/containers"),
+      "@helpers": path.resolve(__dirname, "src/helpers"),
+      "@hooks": path.resolve(__dirname, "src/hooks"),
+      "@pages": path.resolve(__dirname, "src/pages"),
+      "@redux-store": path.resolve(__dirname, "src/redux-store"),
+      "@services": path.resolve(__dirname, "src/services"),
+      "@styles": path.resolve(__dirname, "src/styles"),
+      "@ant-tokens": path.resolve(__dirname, "src/ant-tokens"),
     }
   },
   module: {
