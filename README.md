@@ -1,12 +1,6 @@
 # GitHub Search App 
 This is a simple single page application that allows users to search for users, repositories, or issues on GitHub using the GitHub Search API. The application is built using React.js, Custom Hooks for infinite scrolling and debounce, Redux, React Router, and AntD using Design Tokens for UI.
 
-1. We are using Webpack instead of create-react-app
-2. Webpack configuration can be found in webpack.config.js
-3. npm install
-4. npm start 
-5. npm run build 
-
 ## Features
 
 * Users can search for users, repositories, or issues on GitHub using the GitHub Search API.
