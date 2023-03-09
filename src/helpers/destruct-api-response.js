@@ -1,6 +1,6 @@
 import extractDate from "./format-date";
 
-export default function DestructAPIResponse(data, dropdownValue){
+export default function destructAPIResponse(data, dropdownValue){//transform api response
     let cardProps={};
     if(dropdownValue==="users"){
         cardProps = {
