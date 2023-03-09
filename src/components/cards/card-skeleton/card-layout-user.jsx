@@ -1,12 +1,19 @@
-import React ,{Suspense} from "react";
-import { Card,Typography,Layout } from "antd";
+import React, { Suspense } from "react"; 
+import { Card, Typography, Layout, Col } from "antd";
 const { Meta } = Card;
-const { Link,Text } = Typography; //how imports work 
-const LazyImage = React.lazy(() => import("@components/cards/user-card-image.jsx"));
-//single line imports react...,antd...
+const { Link, Text, Paragraph } = Typography; 
+const LazyImage = React.lazy(() =>
+  import("@components/cards/user-card-image.jsx")
+);
 
-export default function CardLayout(props) {
-  const {avatarURL,login,followersURL, followingURL,url,htmlURL}=props;
+export default function CardLayout({
+  avatarURL,
+  login,
+  followersURL,
+  followingURL,
+  url,
+  htmlURL,
+}) {
   return (
     <Layout>
       <Card
@@ -29,16 +36,30 @@ export default function CardLayout(props) {
       >
         <Meta
           title={login}
-          description={
-            <Layout style={{paddingRight:"5px", paddingLeft:"5px"}}>
-              <p><Text strong>Followers:</Text>{followersURL} </p>
-              <p><Text strong>Following:</Text>{followingURL} </p>
-              <p><Text strong>Email:</Text>{url} </p>
-              <p><Text strong>Profile URL:</Text> <Link target="_blank" href={htmlURL}>{htmlURL}</Link> </p>
-              </Layout>
+          description={//grid system, row, parent, stack, space
+            <Col>
+              <Paragraph>
+                <Text strong>Followers: </Text>
+                {followersURL}
+              </Paragraph>
+              <Paragraph>
+                <Text strong>Following: </Text>
+                {followingURL}
+              </Paragraph>
+              <Paragraph>
+                <Text strong>Email: </Text>
+                {url}
+              </Paragraph>
+              <Paragraph>
+                <Text strong>Profile URL: </Text>
+                <Link target="_blank" href={htmlURL}>
+                  {htmlURL}
+                </Link>
+              </Paragraph>
+            </Col>
           }
         />
       </Card>
-      </Layout>
+    </Layout>
   );
 }

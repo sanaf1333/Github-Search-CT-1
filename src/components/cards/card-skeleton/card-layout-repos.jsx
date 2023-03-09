@@ -1,8 +1,8 @@
 import React from "react";
 import { Card,Typography,Layout } from "antd";
-const { Link,Text } = Typography;
-export default function CardLayoutRepos(props) {
-  const {createdAt,fullName,language, forksCount,watchersCount,htmlURL}=props;
+const { Link,Text, Paragraph } = Typography;
+export default function CardLayoutRepos({createdAt,fullName,language, forksCount,watchersCount,htmlURL}) {
+  
   return (
     <Layout>
       <Card
@@ -11,11 +11,11 @@ export default function CardLayoutRepos(props) {
           width: 240,
         }}
       >
-        <p><Text strong>Created at:</Text> {createdAt}</p>
-        <p><Text strong>Language:</Text> {language}</p>
-        <p><Text strong>Forks:</Text> {forksCount}</p>
-        <p><Text strong>Watchers:</Text> {watchersCount}</p>
-        <p><Text strong>Repository url:</Text> <Link target="_blank" href={htmlURL}>{htmlURL}</Link></p>
+        <Paragraph><Text strong>Created at:</Text> {createdAt}</Paragraph>
+        <Paragraph><Text strong>Language:</Text> {language}</Paragraph>
+        <Paragraph><Text strong>Forks:</Text> {forksCount}</Paragraph>
+        <Paragraph><Text strong>Watchers:</Text> {watchersCount}</Paragraph>
+        <Paragraph><Text strong>Repository url:</Text> <Link target="_blank" href={htmlURL}>{htmlURL}</Link></Paragraph>
       </Card>
       </Layout>
   );
