@@ -6,11 +6,11 @@ import {
   clearResults,
   setSearchKeyword,
   setPageNumber,
-} from "redux-store/reducers/get-API-results.js";
+} from "@redux-store/reducers/API-results-slice.js";
 import {
   setDropdown,
   setSearch,
-} from "redux-store/reducers/search-and-dropdown-reducer.js";
+} from "@redux-store/reducers/search-and-dropdown-slice.js";
 
 const useSearchHandler = () => {
   const {
@@ -22,10 +22,10 @@ const useSearchHandler = () => {
     pageCount,
   } = useSelector((state) => state.result);
   const dispatch = useDispatch();
-//hoook
   const handleSearchInput = useDebouncedCallback(
     useCallback(
       (value, dropdownValue) => {
+        dispatch(clearResults());
         dispatch(setSearch(value));
         dispatch(setDropdown(dropdownValue));
         if (value.length >= 3) {
@@ -45,6 +45,7 @@ const useSearchHandler = () => {
   const handleSearchDropdown = useDebouncedCallback(
     useCallback(
       (value, searchInput) => {
+        dispatch(clearResults());
         dispatch(setSearch(searchInput));
         dispatch(setDropdown(value));
         if (searchInput.length >= 3) {
@@ -52,8 +53,7 @@ const useSearchHandler = () => {
           dispatch(setPageNumber(pageNumber+1));
           dispatch(setSearchKeyword(url));
           dispatch(fetchProducts(url,pageCount,pageNumber+1));
-        } else {
-          
+        } else {        
           dispatch(clearResults());
         }
       },
