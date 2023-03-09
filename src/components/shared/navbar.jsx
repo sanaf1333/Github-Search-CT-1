@@ -5,7 +5,7 @@ import { BulbOutlined, BulbFilled } from "@ant-design/icons";
 
 const Navbar = ({ isDarkMode, toggleDarkMode }) => {
   const icon = isDarkMode ? <BulbOutlined /> : <BulbFilled />;
-  const handleToggleDarkMode = (checked) => {
+  const handleToggleDarkMode = () => {
     toggleDarkMode();
   };
   return (
