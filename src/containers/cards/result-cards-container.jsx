@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography } from "antd";
 import CardLayout from "@components/cards/card-skeleton/card-layout-user.jsx";
 import CardLayoutIssue from "@components/cards/card-skeleton/card-layout-issue.jsx";
 import CardLayoutRepos from "@components/cards/card-skeleton/card-layout-repos.jsx";
@@ -9,9 +8,7 @@ import ResultCards from "@components/cards/result-cards.jsx";
 import {
   setPageNumber,
   fetchProducts,
-  STATUSES,
-} from "../../redux-store/reducers/get-API-results";
-const { Title } = Typography;
+} from "../../redux-store/reducers/API-results-slice";
 
 const ResultCardsContainer = () => {
   const {
@@ -35,6 +32,7 @@ const ResultCardsContainer = () => {
     if (
       isInter &&
       pageNumber >= 0 &&
+      results &&
       results.length < resultCount &&
       searchInput.length >= 3
     ) {
@@ -47,10 +45,10 @@ const ResultCardsContainer = () => {
     default: CardLayout,
   };
 
-  if (status === STATUSES.ERROR && pageNumber <= 1) {
-    return <Title level={4}>Oops! Something went wrong.</Title>;
+  if (searchInput.length < 3) {
+    return null;
   }
-
+  
   const CardLayoutComponent =
     cardLayoutMap[dropdownValue] || cardLayoutMap.default;
 
