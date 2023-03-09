@@ -24,4 +24,5 @@ This is a simple single page application that allows users to search for users, 
 * Run npm start to start the development server.
 * Visit (http://localhost:3000) to view the application.
 
-### Github Search API:  (https://docs.github.com/en/rest/search?apiVersion=2022-11-28#search-users)
+### Github Search API:  
+(https://docs.github.com/en/rest/search?apiVersion=2022-11-28#search-users)
