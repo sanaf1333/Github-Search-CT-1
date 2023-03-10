@@ -14,3 +14,6 @@ const searchAndDropdownReducer = createSlice({
 
 export const { setSearch, setDropdown } = searchAndDropdownReducer.actions;
 export default searchAndDropdownReducer.reducer;
+
+export const selectSearchInput = (state) => state.search.searchInput;
+export const selectDropdownValue = (state) => state.search.dropdownValue;

@@ -1,7 +1,5 @@
 import fetchDataFromAPI from "@services/fetch-data-from-API";
 const { createSlice } = require("@reduxjs/toolkit");
-import { createSelector } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 export const STATUSES = Object.freeze({
   IDLE: "idle",
   ERROR: "error",
@@ -86,34 +84,9 @@ export const concatResults = (results, newResults) => {
   return [...results, ...newResults];
 };
 
-export const selectResult = (state) => state.result;
-
-export const selectResultStatus = createSelector(
-  selectResult,
-  (result) => result.status
-);
-
-export const selectResultData = createSelector(
-  selectResult,
-  (result) => result.data
-);
-
-export const selectSearchKeyword = createSelector(
-  selectResult,
-  (result) => result.searchKeyword
-);
-
-export const selectPageNumber = createSelector(
-  selectResult,
-  (result) => result.pageNumber
-);
-
-export const selectPageCount = createSelector(
-  selectResult,
-  (result) => result.pageCount
-);
-
-export const selectResultCount = createSelector(
-  selectResult,
-  (result) => result.resultCount
-);
+export const selectResults = (state) => state.result.data;
+export const selectStatus = (state) => state.result.status;
+export const selectPageNumber = (state) => state.result.pageNumber;
+export const selectSearchKeyword = (state) => state.result.searchKeyword;
+export const selectResultCount = (state) => state.result.resultCount;
+export const selectPageCount = (state) => state.result.pageCount;
