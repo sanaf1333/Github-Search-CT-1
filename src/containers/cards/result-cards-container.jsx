@@ -8,19 +8,23 @@ import ResultCards from "@components/cards/result-cards.jsx";
 import {
   setPageNumber,
   fetchProducts,
-} from "../../redux-store/reducers/API-results-slice";
-
+  selectResults,
+  selectPageCount,
+  selectPageNumber,
+  selectResultCount,
+  selectStatus,
+  selectSearchKeyword,
+} from "@redux-store/reducers/github-search-API-slice";
+import {selectSearchInput, selectDropdownValue} from "@redux-store/reducers/search-and-dropdown-slice.js";
 const ResultCardsContainer = () => {
-  const {
-    data: results,
-    status,
-    pageNumber,
-    searchKeyword,
-    resultCount,
-    pageCount,
-  } = useSelector((state) => state.result);
-
-  const { searchInput, dropdownValue } = useSelector((state) => state.search);
+  const results = useSelector(selectResults);
+  const pageCount = useSelector(selectPageCount);
+  const pageNumber = useSelector(selectPageNumber);
+  const resultCount = useSelector(selectResultCount);
+  const status = useSelector(selectStatus);
+  const searchKeyword = useSelector(selectSearchKeyword);
+  const searchInput = useSelector(selectSearchInput);
+  const dropdownValue = useSelector(selectDropdownValue);
   const dispatch = useDispatch();
 
   const fetchData = async () => {
@@ -48,7 +52,7 @@ const ResultCardsContainer = () => {
   if (searchInput.length < 3) {
     return null;
   }
-  
+
   const CardLayoutComponent =
     cardLayoutMap[dropdownValue] || cardLayoutMap.default;
 
@@ -60,7 +64,6 @@ const ResultCardsContainer = () => {
       loadMoreRef={loadMoreRef}
       dropdownValue={dropdownValue}
       status={status}
-      pageNumber={pageNumber}
     />
   );
 };
