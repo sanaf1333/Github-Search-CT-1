@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import useSearchHandler from "@hooks/use-search-handler-hook.js";
 import SearchAndDropdown from "@components/search/search-and-dropdown.jsx";
 import { useSelector } from "react-redux";
-
-const SearchAndDropdownContainer = React.memo(() => {
+import { selectResults } from "@redux-store/reducers/github-search-API-slice";
+const SearchAndDropdownContainer = (() => {
   const [searchInput, setSearchInput] = useState("");
   const [dropdownValue, setDropdownValue] = useState("users");
   const { handleSearchInput, handleSearchDropdown } = useSearchHandler();
-  const { data: results } = useSelector((state) => state.result);
-  
+  const results=useSelector(selectResults);
   function handleChangeDropdown(value) {
     setDropdownValue(value);
     handleSearchDropdown(value, searchInput);
@@ -27,15 +26,6 @@ const SearchAndDropdownContainer = React.memo(() => {
       handleChangeDropdown={handleChangeDropdown}
       results={results}
     />
-  );
-}, (prevProps, nextProps) => {
-  console.log("previosu props",prevProps);
-  console.log(nextProps);
-  return (
-  
-    prevProps.searchInput === nextProps.searchInput &&
-    prevProps.dropdownValue === nextProps.dropdownValue &&
-    prevProps.results === nextProps.results
   );
 });
 
