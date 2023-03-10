@@ -1,7 +1,7 @@
-import React, { Suspense } from "react"; 
-import { Card, Typography, Layout, Col } from "antd";
+import React, { Suspense } from "react";
+import { Card, Typography, Layout, Col, Row } from "antd";
 const { Meta } = Card;
-const { Link, Text, Paragraph } = Typography; 
+const { Link, Text, Paragraph } = Typography;
 const LazyImage = React.lazy(() =>
   import("@components/cards/user-card-image.jsx")
 );
@@ -36,26 +36,34 @@ export default function CardLayout({
       >
         <Meta
           title={login}
-          description={//grid system, row, parent, stack, space
+          description={
             <Col>
-              <Paragraph>
-                <Text strong>Followers: </Text>
-                {followersURL}
-              </Paragraph>
-              <Paragraph>
-                <Text strong>Following: </Text>
-                {followingURL}
-              </Paragraph>
-              <Paragraph>
-                <Text strong>Email: </Text>
-                {url}
-              </Paragraph>
-              <Paragraph>
-                <Text strong>Profile URL: </Text>
-                <Link target="_blank" href={htmlURL}>
-                  {htmlURL}
-                </Link>
-              </Paragraph>
+              <Row>
+                <Paragraph>
+                  <Text strong>Followers: </Text>
+                  {followersURL}
+                </Paragraph>
+              </Row>
+              <Row>
+                <Paragraph>
+                  <Text strong>Following: </Text>
+                  {followingURL}
+                </Paragraph>
+              </Row>
+              <Row>
+                <Paragraph>
+                  <Text strong>Email: </Text>
+                  {url}
+                </Paragraph>
+              </Row>
+              <Row>
+                <Paragraph>
+                  <Text strong>Profile URL: </Text>
+                  <Link target="_blank" href={htmlURL}>
+                    {htmlURL}
+                  </Link>
+                </Paragraph>
+              </Row>
             </Col>
           }
         />
