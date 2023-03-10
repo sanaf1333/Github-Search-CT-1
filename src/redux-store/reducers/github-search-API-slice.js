@@ -2,14 +2,13 @@ import fetchDataFromAPI from "@services/fetch-data-from-API";
 const { createSlice } = require("@reduxjs/toolkit");
 import { createSelector } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-export const STATUSES = Object.freeze({ 
+export const STATUSES = Object.freeze({
   IDLE: "idle",
   ERROR: "error",
   LOADING: "loading",
   SUCCESS: "success",
 });
-//file name changec//entity name
-const ResultSlice = createSlice({ //selectors in slices, docs toolkit
+const ResultSlice = createSlice({
   name: "result",
   initialState: {
     data: [],
@@ -19,7 +18,7 @@ const ResultSlice = createSlice({ //selectors in slices, docs toolkit
     resultCount: 0,
     pageCount: 20,
   },
-  reducers: {//naming, structure, slices, examples
+  reducers: {
     setResults(state, action) {
       state.data = action.payload;
     },
@@ -44,8 +43,6 @@ const ResultSlice = createSlice({ //selectors in slices, docs toolkit
   },
 });
 
-
-
 export const {
   setResults,
   setStatus,
@@ -57,12 +54,12 @@ export const {
 } = ResultSlice.actions;
 export default ResultSlice.reducer;
 
-export function fetchProducts(searchKeyword,pageCount,pageNumber) {
+export function fetchProducts(searchKeyword, pageCount, pageNumber) {
   return async function fetchProductThunk(dispatch, getState) {
     const currentResults = getState().result.data;
     dispatch(setStatus(STATUSES.LOADING));
     try {
-      const data=await fetchDataFromAPI(searchKeyword,pageCount,pageNumber);
+      const data = await fetchDataFromAPI(searchKeyword, pageCount, pageNumber);
       dispatch(setResultCount(data.total_count));
       if (pageNumber > 1) {
         const newResults = data.items;
@@ -76,7 +73,7 @@ export function fetchProducts(searchKeyword,pageCount,pageNumber) {
         dispatch(setStatus(STATUSES.SUCCESS));
       }
 
-      if(data.message){
+      if (data.message) {
         dispatch(setStatus(STATUSES.ERROR));
       }
     } catch (err) {
@@ -88,7 +85,6 @@ export function fetchProducts(searchKeyword,pageCount,pageNumber) {
 export const concatResults = (results, newResults) => {
   return [...results, ...newResults];
 };
-
 
 export const selectResult = (state) => state.result;
 
@@ -121,4 +117,3 @@ export const selectResultCount = createSelector(
   selectResult,
   (result) => result.resultCount
 );
-
