@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 function useInfiniteScroll() {
   const loadMoreRef = useRef(null);
   const [isInter, setIsInter] = useState(false);
-  const handleObserver = useCallback((entries) => { //usecallback parameters
+  const handleObserver = useCallback((entries) => { 
     const [target] = entries;
     if (target.isIntersecting ) {
       setIsInter(true);
@@ -22,8 +22,7 @@ function useInfiniteScroll() {
     const observer = new IntersectionObserver(handleObserver, option);
 
     if (loadMoreRef.current) observer.observe(loadMoreRef.current);
-  }, [handleObserver]);//study
-
+  }, [handleObserver]);
   return { loadMoreRef, isInter };
 }
 
