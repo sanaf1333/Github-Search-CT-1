@@ -3,10 +3,9 @@ import { ConfigProvider } from "antd";
 import * as lightTheme from "@ant-tokens/light.json";
 import * as darkTheme from "@ant-tokens/dark.json";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleDarkMode } from "@redux-store/reducers/theme-slice";
-
+import { toggleDarkMode, selectIsDarkMode } from "@redux-store/reducers/theme-slice";
 const ThemeProvider = ({ children }) => {
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const isDarkMode = useSelector(selectIsDarkMode);
   const dispatch = useDispatch();
   const antdTheme = {
     token: isDarkMode ? darkTheme : lightTheme,
