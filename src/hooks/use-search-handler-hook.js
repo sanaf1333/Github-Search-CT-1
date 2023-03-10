@@ -1,26 +1,21 @@
 import { useCallback } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useDebouncedCallback from "@hooks/use-debounce-hook.js";
 import {
   fetchProducts,
   clearResults,
   setSearchKeyword,
   setPageNumber,
-} from "@redux-store/reducers/API-results-slice.js";
+  selectPageCount,
+  selectPageNumber,
+} from "@redux-store/reducers/github-search-API-slice.js";
 import {
   setDropdown,
   setSearch,
 } from "@redux-store/reducers/search-and-dropdown-slice.js";
-
 const useSearchHandler = () => {
-  const {
-    data: results,
-    status,
-    pageNumber,
-    searchKeyword,
-    resultCount,
-    pageCount,
-  } = useSelector((state) => state.result);
+  const pageCount = useSelector(selectPageCount);
+  const pageNumber = useSelector(selectPageNumber);
   const dispatch = useDispatch();
   const handleSearchInput = useDebouncedCallback(
     useCallback(
@@ -30,9 +25,9 @@ const useSearchHandler = () => {
         dispatch(setDropdown(dropdownValue));
         if (value.length >= 3) {
           const url = `${dropdownValue}?q=${value}`;
-          dispatch(setPageNumber(pageNumber+1));
+          dispatch(setPageNumber(pageNumber + 1));
           dispatch(setSearchKeyword(url));
-          dispatch(fetchProducts(url,pageCount,pageNumber+1));
+          dispatch(fetchProducts(url, pageCount, pageNumber + 1));
         } else {
           dispatch(clearResults());
         }
@@ -50,10 +45,10 @@ const useSearchHandler = () => {
         dispatch(setDropdown(value));
         if (searchInput.length >= 3) {
           const url = `${value}?q=${searchInput}`;
-          dispatch(setPageNumber(pageNumber+1));
+          dispatch(setPageNumber(pageNumber + 1));
           dispatch(setSearchKeyword(url));
-          dispatch(fetchProducts(url,pageCount,pageNumber+1));
-        } else {        
+          dispatch(fetchProducts(url, pageCount, pageNumber + 1));
+        } else {
           dispatch(clearResults());
         }
       },
