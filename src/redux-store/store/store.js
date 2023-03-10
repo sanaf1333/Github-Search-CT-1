@@ -1,7 +1,7 @@
-import resultReducer from "@redux-store/reducers/get-API-results.js";
 import { configureStore } from "@reduxjs/toolkit";
-import searchAndDropdownReducer from "@redux-store/reducers/search-and-dropdown-reducer.js";
-import themeReducer from "@redux-store/reducers/change-theme-reducer.js";
+import resultReducer from "@redux-store/reducers/github-search-API-slice";
+import searchAndDropdownReducer from "@redux-store/reducers/search-and-dropdown-slice";
+import themeReducer from "@redux-store/reducers/theme-slice";
 const store = configureStore({
   reducer: {
     result: resultReducer,
