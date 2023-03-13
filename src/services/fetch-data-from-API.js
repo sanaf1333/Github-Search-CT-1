@@ -6,7 +6,7 @@ export default async function fetchDataFromAPI(
 ) {
   const headers = { Accept: "application/vnd.github.text-match+json" };
   const res = await fetch(
-    `${API_URL}${searchKeyword}&per_page=${pageCount}&page=${pageNumber}`,
+    `${API_URL}/search/${searchKeyword}&per_page=${pageCount}&page=${pageNumber}`,
     { headers }
   );
   const data = await res.json();
